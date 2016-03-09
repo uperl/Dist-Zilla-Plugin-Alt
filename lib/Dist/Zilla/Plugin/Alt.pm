@@ -70,7 +70,21 @@ sub setup_installer
   }
   elsif($file = first { $_->name eq 'Build.PL' } @{ $self->zilla->files })
   {
-    $self->log_fatal('todo');
+    my $content = $file->content;
+    my $extra = join "\n", qq{# begin inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
+                           q{my $alt = $ENV{PERL_ALT_INSTALL} || '';},
+                           q{$module_build_args{destdir} =},
+                           q{  $alt ? $alt eq 'OVERWRITE' ? '' : $alt : 'no-install-alt';},
+                           qq{# end inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
+                           q{};
+    if($content =~ s{^(my \$build = [A-Za-z0-9_:]+->new\(\%module_build_args\);)}{$extra . "\n" . $1}me)
+    {
+      $file->content($content);
+    }
+    else
+    {
+      $self->log_fatal('unable to find Module::Build->new in Build.PL');
+    }
   }
   else
   {
