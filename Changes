@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.02      2016-03-09 17:12:44 -0500
   - added support for [ModuleBuild]
 
 0.01      2016-03-09 16:46:41 -0500
