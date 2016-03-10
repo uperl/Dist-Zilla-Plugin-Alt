@@ -5,6 +5,7 @@ use warnings;
 use Moose;
 use List::Util qw( first );
 use File::Find ();
+use File::chdir;
 
 # ABSTRACT: Create Alt distributions with Dist::Zilla
 # VERSION
@@ -105,6 +106,8 @@ sub metadata
 sub provide_name
 {
   my($self) = @_;
+  local $CWD = $self->zilla->root;
+  return unless -d 'lib/Alt';
   my @files;
   File::Find::find(sub { return unless -f; push @files, $File::Find::name }, "lib/Alt");  
   return unless @files;
