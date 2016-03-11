@@ -12,7 +12,9 @@ my $post_diag;
 $modules{$_} = $_ for qw(
   Dist::Zilla
   ExtUtils::MakeMaker
+  File::chdir
   Moose
+  Test::DZil
   Test::More
 );
 
