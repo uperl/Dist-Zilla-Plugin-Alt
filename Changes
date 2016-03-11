@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.03      2016-03-11 03:38:29 -0500
+  - First CPAN release
+
 0.02      2016-03-09 17:12:44 -0500
   - added support for [ModuleBuild]
 
