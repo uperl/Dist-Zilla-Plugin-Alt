@@ -12,6 +12,10 @@ use File::chdir;
 
 =head1 SYNOPSIS
 
+Your dist.ini:
+
+ [GatherDir]
+ [MakeMaker]
  [Alt]
 
 =head1 DESCRIPTION
@@ -38,6 +42,21 @@ C<Alt::> namespace will be index.
 If it isn't already specified in your C<dist.ini> file.  It will
 determine this from the C<Alt::> module in your distribution.
 If you have more than one C<Alt::> module it is an error.
+
+=back
+
+=head1 CAVEATS
+
+This plugin should appear in your C<dist.ini> toward the end, or at
+least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
+
+=head1 SEE ALSO
+
+=over 4
+
+=item L<Alt>
+
+=item L<Dist::Zilla>
 
 =back
 

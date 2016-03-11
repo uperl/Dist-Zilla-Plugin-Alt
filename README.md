@@ -4,6 +4,10 @@ Create Alt distributions with Dist::Zilla
 
 # SYNOPSIS
 
+Your dist.ini:
+
+    [GatherDir]
+    [MakeMaker]
     [Alt]
 
 # DESCRIPTION
@@ -28,6 +32,16 @@ What it does is:
     If it isn't already specified in your `dist.ini` file.  It will
     determine this from the `Alt::` module in your distribution.
     If you have more than one `Alt::` module it is an error.
+
+# CAVEATS
+
+This plugin should appear in your `dist.ini` toward the end, or at
+least after your `[GatherDir]` and `[MakeMaker]` plugins (or equivalent).
+
+# SEE ALSO
+
+- [Alt](https://metacpan.org/pod/Alt)
+- [Dist::Zilla](https://metacpan.org/pod/Dist::Zilla)
 
 # AUTHOR
 
