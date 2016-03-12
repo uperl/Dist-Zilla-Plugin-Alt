@@ -25,7 +25,7 @@ What it does is:
 - Updates the no\_index meta
 
     So that only `.pm` files in your lib directory that are in the
-    `Alt::` namespace will be index.
+    `Alt::` namespace will be indexed.
 
 - Sets the dist name property
 

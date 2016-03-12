@@ -35,7 +35,7 @@ is set.
 =item Updates the no_index meta
 
 So that only C<.pm> files in your lib directory that are in the
-C<Alt::> namespace will be index.
+C<Alt::> namespace will be indexed.
 
 =item Sets the dist name property
 
