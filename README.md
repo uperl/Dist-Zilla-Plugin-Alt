@@ -13,7 +13,7 @@ Your dist.ini:
 # DESCRIPTION
 
 This [Dist::Zilla](https://metacpan.org/pod/Dist::Zilla) plugin can be added to an existing dist.ini file to
-turn your (or someone else's distribution into an [Alt](https://metacpan.org/pod/Alt) distribution).
+turn your (or someone else's) distribution into an [Alt](https://metacpan.org/pod/Alt) distribution.
 What it does is:
 
 - Modifies `Makefile.PL` or `Build.PL`
