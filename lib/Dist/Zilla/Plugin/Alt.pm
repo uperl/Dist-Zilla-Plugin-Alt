@@ -62,7 +62,7 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
 
 =cut
 
-with 'Dist::Zilla::Role::InstallTool';
+with 'Dist::Zilla::Role::FileMunger';
 with 'Dist::Zilla::Role::MetaProvider';
 with 'Dist::Zilla::Role::NameProvider';
 
@@ -71,7 +71,7 @@ with 'Dist::Zilla::Role::NameProvider';
 # This may work for [MakeMaker::Awesome] (which I don't know if we even support
 # patches welcome), but is not supported by [MakeMaker] or [ModuleBuild].
 
-sub setup_installer
+sub munge_files
 {
   my($self) = @_;
   
@@ -102,7 +102,7 @@ sub setup_installer
                            q{  $alt ? $alt eq 'OVERWRITE' ? '' : $alt : 'no-install-alt';},
                            qq{# end inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
                            q{};
-    if($content =~ s{^(my \$build = [A-Za-z0-9_:]+->new\(\%module_build_args\);)}{$extra . "\n" . $1}me)
+    if($content =~ s{^(my \$build =)}{$extra . "\n" . $1}me)
     {
       $file->content($content);
     }

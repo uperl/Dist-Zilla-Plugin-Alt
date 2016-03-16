@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Modify Makefile/Build.PL in munge_files instead of setup_installer
 
 0.03      2016-03-11 03:38:29 -0500
   - First CPAN release
