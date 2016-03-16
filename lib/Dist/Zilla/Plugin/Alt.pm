@@ -66,11 +66,6 @@ with 'Dist::Zilla::Role::FileMunger';
 with 'Dist::Zilla::Role::MetaProvider';
 with 'Dist::Zilla::Role::NameProvider';
 
-# on #distzilla IRC it was pointed out that altering Makefile.PL or Build.pl in the
-# munge step may be better than doing it during the setup_installer phase.
-# This may work for [MakeMaker::Awesome] (which I don't know if we even support
-# patches welcome), but is not supported by [MakeMaker] or [ModuleBuild].
-
 sub munge_files
 {
   my($self) = @_;
