@@ -1,7 +1,6 @@
 package Dist::Zilla::Plugin::Alt {
 
-  use strict;
-  use warnings;
+  use 5.014;
   use Moose;
   use List::Util qw( first );
   use File::Find ();
