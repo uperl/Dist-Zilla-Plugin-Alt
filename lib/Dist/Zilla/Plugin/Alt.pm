@@ -1,14 +1,13 @@
-package Dist::Zilla::Plugin::Alt;
+package Dist::Zilla::Plugin::Alt {
 
-use strict;
-use warnings;
-use Moose;
-use List::Util qw( first );
-use File::Find ();
-use File::chdir;
+  use strict;
+  use warnings;
+  use Moose;
+  use List::Util qw( first );
+  use File::Find ();
+  use File::chdir;
 
-# ABSTRACT: Create Alt distributions with Dist::Zilla
-# VERSION
+  # ABSTRACT: Create Alt distributions with Dist::Zilla
 
 =head1 SYNOPSIS
 
@@ -62,80 +61,82 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
 
 =cut
 
-with 'Dist::Zilla::Role::FileMunger';
-with 'Dist::Zilla::Role::MetaProvider';
-with 'Dist::Zilla::Role::NameProvider';
+  with 'Dist::Zilla::Role::FileMunger';
+  with 'Dist::Zilla::Role::MetaProvider';
+  with 'Dist::Zilla::Role::NameProvider';
 
-sub munge_files
-{
-  my($self) = @_;
+  sub munge_files
+  {
+    my($self) = @_;
   
-  if(my $file = first { $_->name eq 'Makefile.PL' } @{ $self->zilla->files })
-  {
-    my $content = $file->content;
-    my $extra = join "\n", qq{# begin inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
-                        q{my $alt = $ENV{PERL_ALT_INSTALL} || '';},
-                        q{$WriteMakefileArgs{DESTDIR} =},
-                        q{  $alt ? $alt eq 'OVERWRITE' ? '' : $alt : 'no-install-alt';},
-                        qq{# end inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
-                        q{};
-    if($content =~ s{^WriteMakefile}{${extra}WriteMakefile}m)
+    if(my $file = first { $_->name eq 'Makefile.PL' } @{ $self->zilla->files })
     {
-      $file->content($content);
+      my $content = $file->content;
+      my $extra = join "\n", qq{# begin inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
+                          q{my $alt = $ENV{PERL_ALT_INSTALL} || '';},
+                          q{$WriteMakefileArgs{DESTDIR} =},
+                          q{  $alt ? $alt eq 'OVERWRITE' ? '' : $alt : 'no-install-alt';},
+                          qq{# end inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
+                          q{};
+      if($content =~ s{^WriteMakefile}{${extra}WriteMakefile}m)
+      {
+        $file->content($content);
+      }
+      else
+      {
+        $self->log_fatal('unable to find WriteMakefile in Makefile.PL');
+      }
+    }
+    elsif($file = first { $_->name eq 'Build.PL' } @{ $self->zilla->files })
+    {
+      my $content = $file->content;
+      my $extra = join "\n", qq{# begin inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
+                             q{my $alt = $ENV{PERL_ALT_INSTALL} || '';},
+                             q{$module_build_args{destdir} =},
+                             q{  $alt ? $alt eq 'OVERWRITE' ? '' : $alt : 'no-install-alt';},
+                             qq{# end inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
+                             q{};
+      if($content =~ s{^(my \$build =)}{$extra . "\n" . $1}me)
+      {
+        $file->content($content);
+      }
+      else
+      {
+        $self->log_fatal('unable to find Module::Build->new in Build.PL');
+      }
     }
     else
     {
-      $self->log_fatal('unable to find WriteMakefile in Makefile.PL');
+      $self->log_fatal('unable to find Makefile.PL or Build.PL');
     }
   }
-  elsif($file = first { $_->name eq 'Build.PL' } @{ $self->zilla->files })
-  {
-    my $content = $file->content;
-    my $extra = join "\n", qq{# begin inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
-                           q{my $alt = $ENV{PERL_ALT_INSTALL} || '';},
-                           q{$module_build_args{destdir} =},
-                           q{  $alt ? $alt eq 'OVERWRITE' ? '' : $alt : 'no-install-alt';},
-                           qq{# end inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
-                           q{};
-    if($content =~ s{^(my \$build =)}{$extra . "\n" . $1}me)
-    {
-      $file->content($content);
-    }
-    else
-    {
-      $self->log_fatal('unable to find Module::Build->new in Build.PL');
-    }
-  }
-  else
-  {
-    $self->log_fatal('unable to find Makefile.PL or Build.PL');
-  }
-}
 
-sub metadata
-{
-  my($self) = @_;
-  return {
-    no_index => {
-      file => [ grep !/^lib\/Alt\//, grep /^lib.*\.pm$/, map { $_->name } @{ $self->zilla->files } ],
-    },
-  };
-}
+  sub metadata
+  {
+    my($self) = @_;
+    return {
+      no_index => {
+        file => [ grep !/^lib\/Alt\//, grep /^lib.*\.pm$/, map { $_->name } @{ $self->zilla->files } ],
+      },
+    };
+  }
 
-sub provide_name
-{
-  my($self) = @_;
-  local $CWD = $self->zilla->root;
-  return unless -d 'lib/Alt';
-  my @files;
-  File::Find::find(sub { return unless -f; push @files, $File::Find::name }, "lib/Alt");  
-  return unless @files;
-  $self->log_fatal("found too many Alt modules!") if @files > 1;
-  my $name = $files[0];
-  $name =~ s/^lib\///;
-  $name =~ s/\.pm$//;
-  $name =~ s/\//-/g;
-  $name;
+  sub provide_name
+  {
+    my($self) = @_;
+    local $CWD = $self->zilla->root;
+    return unless -d 'lib/Alt';
+    my @files;
+    File::Find::find(sub { return unless -f; push @files, $File::Find::name }, "lib/Alt");  
+    return unless @files;
+    $self->log_fatal("found too many Alt modules!") if @files > 1;
+    my $name = $files[0];
+    $name =~ s/^lib\///;
+    $name =~ s/\.pm$//;
+    $name =~ s/\//-/g;
+    $name;
+  }
+
 }
 
 1;
