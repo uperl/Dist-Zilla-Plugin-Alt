@@ -37,9 +37,10 @@ C<Alt::> namespace will be indexed.
 
 =item Sets the dist name property
 
-If it isn't already specified in your C<dist.ini> file.  It will
-determine this from the C<Alt::> module in your distribution.
-If you have more than one C<Alt::> module it is an error.
+If the name isn't already set in your C<dist.ini> by some other
+means, this plugin will set the name based on the Alt module.
+If you have more than one Alt module (which would be unusual)
+then it is an error unless you set the name by some other means.
 
 =back
 

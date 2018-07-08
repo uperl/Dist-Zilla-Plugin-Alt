@@ -29,9 +29,10 @@ What it does is:
 
 - Sets the dist name property
 
-    If it isn't already specified in your `dist.ini` file.  It will
-    determine this from the `Alt::` module in your distribution.
-    If you have more than one `Alt::` module it is an error.
+    If the name isn't already set in your `dist.ini` by some other
+    means, this plugin will set the name based on the Alt module.
+    If you have more than one Alt module (which would be unusual)
+    then it is an error unless you set the name by some other means.
 
 # CAVEATS
 
