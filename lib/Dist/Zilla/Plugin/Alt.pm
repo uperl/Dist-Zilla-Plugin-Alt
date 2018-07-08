@@ -28,7 +28,7 @@ What it does is:
 
 Adds code to change the install location so that your dist won't
 be installed unless the environment variable C<PERL_ALT_INSTALL>
-is set.
+is set to C<OVERWRITE>.
 
 =item Updates the no_index meta
 
