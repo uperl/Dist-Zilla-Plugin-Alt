@@ -76,6 +76,15 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
                           q{my $alt = $ENV{PERL_ALT_INSTALL} || '';},
                           q{$WriteMakefileArgs{DESTDIR} =},
                           q{  $alt ? $alt eq 'OVERWRITE' ? '' : $alt : 'no-install-alt';},
+                          q<if($^O eq 'MSWin32' && $WriteMakefileArgs{DESTDIR}) {>,
+                          q{  # Windows is a precious snowflake that can't handle DESTDIR},
+                          q{  # Caveat: this probably ignores any PREFIX specified by the user},
+                          q{  require Config;},
+                          q{  require File::Spec;},
+                          q{  my @prefix = split /:/, $Config::Config{prefix};},
+                          q{  $WriteMakefileArgs{PREFIX} = File::Spec->catdir($WriteMakefileArgs{DESTDIR}, @prefix);},
+                          q{  delete $WriteMakefileArgs{DESTDIR};},
+                          q<}>,
                           qq{# end inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
                           q{};
       if($content =~ s{^WriteMakefile}{${extra}WriteMakefile}m)
@@ -94,6 +103,15 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
                              q{my $alt = $ENV{PERL_ALT_INSTALL} || '';},
                              q{$module_build_args{destdir} =},
                              q{  $alt ? $alt eq 'OVERWRITE' ? '' : $alt : 'no-install-alt';},
+                             q<if($^O eq 'MSWin32' && $module_build_args{destdir}) {>,
+                             q{  # Windows is a precious snowflake that can't handle destdir},
+                             q{  # Caveat: this probably ignores any PREFIX specified by the user},
+                             q{  require Config;},
+                             q{  require File::Spec;},
+                             q{  my @prefix = split /:/, $Config::Config{prefix};},
+                             q{  $module_build_args{PREFIX} = File::Spec->catdir($module_build_args{destdir}, @prefix);},
+                             q{  delete $module_build_args{destdir};},
+                             q<}>,
                              qq{# end inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
                              q{};
       if($content =~ s{^(my \$build =)}{$extra . "\n" . $1}me)
