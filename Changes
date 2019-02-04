@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Additional workaround for MSWin32
 
 0.06      2018-12-23 14:45:48 -0700
   - Added workaround for MSWin32 where DESTDIR doesn't work.
