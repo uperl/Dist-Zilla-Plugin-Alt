@@ -24,6 +24,12 @@ What it does is:
     be installed unless the environment variable `PERL_ALT_INSTALL`
     is set to `OVERWRITE`.
 
+    \[version 0.08\]
+
+    Will also add a diagnostic warning that will display when
+    `Makefile.PL` or `Build.PL` is run, with a link to [Alt](https://metacpan.org/pod/Alt) to help
+    de-confuse those unfamiliar with the [Alt](https://metacpan.org/pod/Alt) namespace.
+
 - Updates the no\_index meta
 
     So that only `.pm` files in your lib directory that are in the
