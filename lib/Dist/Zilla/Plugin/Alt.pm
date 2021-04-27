@@ -2,6 +2,7 @@ package Dist::Zilla::Plugin::Alt {
 
   use 5.020;
   use Moose;
+  use experimental qw( postderef signatures );
   use List::Util qw( first );
   use File::Find ();
   use File::chdir;
@@ -65,10 +66,8 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
   with 'Dist::Zilla::Role::MetaProvider';
   with 'Dist::Zilla::Role::NameProvider';
 
-  sub munge_files
+  sub munge_files ($self)
   {
-    my($self) = @_;
-
     if(my $file = first { $_->name eq 'Makefile.PL' } @{ $self->zilla->files })
     {
       my $content = $file->content;
@@ -107,7 +106,7 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
         $self->log_fatal('unable to find WriteMakefile in Makefile.PL');
       }
     }
-    elsif($file = first { $_->name eq 'Build.PL' } @{ $self->zilla->files })
+    elsif($file = first { $_->name eq 'Build.PL' } $self->zilla->files->@*)
     {
       my $content = $file->content;
       my $extra = join "\n", qq{# begin inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
@@ -140,9 +139,8 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
     }
   }
 
-  sub metadata
+  sub metadata ($self)
   {
-    my($self) = @_;
     return {
       no_index => {
         file => [ grep !/^lib\/Alt\//, grep /^lib.*\.pm$/, map { $_->name } @{ $self->zilla->files } ],
@@ -150,9 +148,8 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
     };
   }
 
-  sub provide_name
+  sub provide_name ($self)
   {
-    my($self) = @_;
     local $CWD = $self->zilla->root;
     return unless -d 'lib/Alt';
     my @files;
