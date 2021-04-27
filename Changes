@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.08      2021-04-27 09:36:53 -0600
   - moved to New GitHub org
   - Require Perl 5.20 (gh#4)
   - Add diagnostic to help avoid confusion (gh#3, gh#5)
