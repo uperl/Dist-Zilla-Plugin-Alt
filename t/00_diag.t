@@ -16,6 +16,7 @@ $modules{$_} = $_ for qw(
   Moose
   Test2::V0
   Test::DZil
+  experimental
 );
 
 
