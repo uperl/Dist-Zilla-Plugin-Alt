@@ -31,6 +31,12 @@ Adds code to change the install location so that your dist won't
 be installed unless the environment variable C<PERL_ALT_INSTALL>
 is set to C<OVERWRITE>.
 
+[version 0.08]
+
+Will also add a diagnostic warning that will display when
+C<Makefile.PL> or C<Build.PL> is run, with a link to L<Alt> to help
+de-confuse those unfamiliar with the L<Alt> namespace.
+
 =item Updates the no_index meta
 
 So that only C<.pm> files in your lib directory that are in the
@@ -66,12 +72,16 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
   with 'Dist::Zilla::Role::MetaProvider';
   with 'Dist::Zilla::Role::NameProvider';
 
+  my @diagnostic = (q{print "!!! This is an Alt:: distribution that will not actually install unless you !!!\\n";},
+                    q{print "!!! set PERL_ALT_INSTALL=OVERWRITE.  See https://metacpan.org/pod/Alt       !!!\\n";});
+
   sub munge_files ($self)
   {
     if(my $file = first { $_->name eq 'Makefile.PL' } @{ $self->zilla->files })
     {
       my $content = $file->content;
       my $extra = join "\n", qq{# begin inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
+                          @diagnostic,
                           q{my $alt = $ENV{PERL_ALT_INSTALL} || '';},
                           q{$WriteMakefileArgs{DESTDIR} =},
                           q{  $alt ? $alt eq 'OVERWRITE' ? '' : $alt : 'no-install-alt';},
@@ -110,6 +120,7 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
     {
       my $content = $file->content;
       my $extra = join "\n", qq{# begin inserted by @{[blessed $self ]} @{[ $self->VERSION || 'dev' ]}},
+                             @diagnostic,
                              q{my $alt = $ENV{PERL_ALT_INSTALL} || '';},
                              q{$module_build_args{destdir} =},
                              q{  $alt ? $alt eq 'OVERWRITE' ? '' : $alt : 'no-install-alt';},
