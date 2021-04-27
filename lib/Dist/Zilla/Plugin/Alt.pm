@@ -68,7 +68,7 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
   sub munge_files
   {
     my($self) = @_;
-  
+
     if(my $file = first { $_->name eq 'Makefile.PL' } @{ $self->zilla->files })
     {
       my $content = $file->content;
@@ -156,7 +156,7 @@ least after your C<[GatherDir]> and C<[MakeMaker]> plugins (or equivalent).
     local $CWD = $self->zilla->root;
     return unless -d 'lib/Alt';
     my @files;
-    File::Find::find(sub { return unless -f; push @files, $File::Find::name }, "lib/Alt");  
+    File::Find::find(sub { return unless -f; push @files, $File::Find::name }, "lib/Alt");
     return unless @files;
     $self->log_fatal("found too many Alt modules!") if @files > 1;
     my $name = $files[0];
