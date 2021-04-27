@@ -1,4 +1,4 @@
-# Dist::Zilla::Plugin::Alt [![Build Status](https://secure.travis-ci.org/plicease/Dist-Zilla-Plugin-Alt.png)](http://travis-ci.org/plicease/Dist-Zilla-Plugin-Alt)
+# Dist::Zilla::Plugin::Alt ![linux](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/linux/badge.svg) ![macos](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/macos/badge.svg) ![windows](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/windows/badge.svg) ![cygwin](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/cygwin/badge.svg) ![msys2-mingw](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/msys2-mingw/badge.svg)
 
 Create Alt distributions with Dist::Zilla
 
@@ -6,9 +6,11 @@ Create Alt distributions with Dist::Zilla
 
 Your dist.ini:
 
-    [GatherDir]
-    [MakeMaker]
-    [Alt]
+```
+[GatherDir]
+[MakeMaker]
+[Alt]
+```
 
 # DESCRIPTION
 
