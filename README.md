@@ -1,4 +1,4 @@
-# Dist::Zilla::Plugin::Alt ![linux](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/linux/badge.svg) ![macos](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/macos/badge.svg) ![windows](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/windows/badge.svg) ![cygwin](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/cygwin/badge.svg) ![msys2-mingw](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/msys2-mingw/badge.svg)
+# Dist::Zilla::Plugin::Alt ![linux](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/linux/badge.svg) ![macos](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/macos/badge.svg) ![windows](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/windows/badge.svg) ![msys2-mingw](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/msys2-mingw/badge.svg)
 
 Create Alt distributions with Dist::Zilla
 
@@ -58,7 +58,7 @@ Graham Ollis <plicease@cpan.org>
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2016 by Graham Ollis.
+This software is copyright (c) 2016-2024 by Graham Ollis.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
