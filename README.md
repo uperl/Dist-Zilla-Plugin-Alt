@@ -1,4 +1,4 @@
-# Dist::Zilla::Plugin::Alt ![linux](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/linux/badge.svg) ![macos](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/macos/badge.svg) ![windows](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/windows/badge.svg) ![msys2-mingw](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/msys2-mingw/badge.svg)
+# Dist::Zilla::Plugin::Alt ![linux](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/linux/badge.svg) ![macos](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/macos/badge.svg) ![windows](https://github.com/uperl/Dist-Zilla-Plugin-Alt/workflows/windows/badge.svg)
 
 Create Alt distributions with Dist::Zilla
 
